@@ -1,0 +1,80 @@
+# =========================
+# PYTHON / DJANGO
+# =========================
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+*.sqlite3
+*.db
+db.sqlite3
+
+# Django stuff:
+*.log
+local_settings.py
+.env
+.env.*
+.envrc
+*.pot
+*.py[cod]
+*.mo
+*.egg
+*.egg-info/
+pip-log.txt
+build/
+dist/
+*.bak
+*.swp
+.DS_Store
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.VENV/
+*.env
+Scripts/
+pyvenv.cfg
+
+# =========================
+# NODE / REACT
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.next/
+.cache/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# =========================
+# MISC / EDITOR
+# =========================
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# =========================
+# FRONTEND / BACKEND ASSETS
+# =========================
+frontend/node_modules/
+frontend/build/
+frontend/dist/s
+frontend/.env
+
+backend/staticfiles/
+backend/media/
+backend/__pycache__/
+backend/db.sqlite3
+
+# =========================
+# SYSTEM FILES
+# =========================
+Thumbs.db
+.DS_Store
