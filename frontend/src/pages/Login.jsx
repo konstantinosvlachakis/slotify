@@ -1,18 +1,40 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     remember: false
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Sign in attempt:', formData);
-    // Handle authentication here
+    setError("");
+
+    try {
+      const res = await axios.post(
+  "http://localhost:8000/api/accounts/token/",
+  {
+    email: formData.email,
+    password: formData.password,
+  },
+  { withCredentials: true }
+);
+
+      console.log("Login successful:", res.data);
+      navigate("/"); // redirect wherever you want
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError("Invalid credentials");
+    }
   };
 
   const handleChange = (e) => {
@@ -154,14 +176,19 @@ export default function Login() {
           </div>
 
           {/* Sign Up Link */}
-          <div className="mt-8 text-center">
-            <p className="text-gray-600">
-              Don't have an account?{' '}
-              <button className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
-                Sign up for free
-              </button>
-            </p>
-          </div>
+         {/* Sign Up Link */}
+<div className="mt-8 text-center">
+  <p className="text-gray-600">
+    Don't have an account?{' '}
+    <Link
+      to="/register"
+      className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
+    >
+      Sign up for free
+    </Link>
+  </p>
+</div>
+
         </div>
       </div>
     </div>
