@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
     'accounts',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -130,10 +132,38 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "accounts.auth.CookieJWTAuthentication",  # <-- this must exist
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
 }
 
 
 AUTH_USER_MODEL = "accounts.User"
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # your Vite/React dev server
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.auth_backend.EmailAuthBackend',  # our custom one
+    'django.contrib.auth.backends.ModelBackend',  # keep default for admin
+]
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "x-csrftoken",
+    "authorization",
+]
